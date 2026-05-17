@@ -1,6 +1,12 @@
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import ScrollButton from "@/components/ScrollButton";
+import ToastProvider from "@/components/ToastProvider";
+import { TourContextProvider } from "@/context/TourContextProvider";
 import { Geist, Geist_Mono } from "next/font/google";
+import "swiper/css";
+import "./fonts.css";
 import "./globals.css";
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -22,7 +28,14 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Header />
+        <TourContextProvider>{children}</TourContextProvider>
+
+        <Footer />
+        <ScrollButton />
+        <ToastProvider />
+      </body>
     </html>
   );
 }

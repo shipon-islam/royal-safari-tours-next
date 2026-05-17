@@ -1,0 +1,43 @@
+/* FONTS: */
+@font-face {
+  font-family: "calibre";
+  src: url("/fonts/calibre/TestCalibre-Thin-BF661746edb928b.otf")
+    format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "calibre";
+  src: url("/fonts/calibre/TestCalibre-Regular-BF661746edbee52.otf")
+    format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "calibre";
+  src: url("/fonts/calibre/TestCalibre-Medium-BF661746ed8cff9.otf")
+    format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "calibre";
+  src: url("/fonts/calibre/TestCalibre-Semibold-BF661746ed9242e.otf")
+    format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "calibre";
+  src: url("/fonts/calibre/TestCalibre-Bold-BF661746ed7c530.otf")
+    format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "calibre";
+  src: url("/fonts/calibre/TestCalibre-Black-BF661746ec9d64f.otf")
+    format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}

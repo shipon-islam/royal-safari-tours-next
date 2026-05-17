@@ -5,15 +5,32 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3006",
     "lint": "eslint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "bcryptjs": "^3.0.3",
+    "jose": "^6.2.3",
+    "jsonwebtoken": "^9.0.3",
+    "mime-types": "^3.0.2",
+    "mongoose": "^9.6.2",
     "next": "16.2.6",
+    "nodemailer": "^8.0.7",
+    "quill-image-resize-module-react": "^3.0.0",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-fast-marquee": "^1.6.5",
+    "react-hook-form": "^7.76.0",
+    "react-hot-toast": "^2.6.0",
+    "react-quill-new": "^3.8.3",
+    "react-super-responsive-table": "^6.0.2",
+    "swiper": "^12.1.4",
+    "uuid": "^14.0.0",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
+    "@iconify/react": "^6.0.2",
     "@tailwindcss/postcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",

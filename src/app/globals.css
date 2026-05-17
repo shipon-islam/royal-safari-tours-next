@@ -1,26 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Mansalva");
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* --font-palanquin: "Palanquin Dark", sans-serif;
+  --font-young: "Young Serif", serif;
+  --font-inter: "Inter", sans-serif;
+  --font-yuji: "Yuji Mai", serif;
+  --font-mansalva: "Mansalva", sans-serif;
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-montagu: "Montagu Slab", serif; */
+  --font-mansalva: "Mansalva", sans-serif;
+  --font-calibre: "calibre", sans-serif;
+  --color-light: #fcfaee;
+  --color-lightGray: #f2efdf;
+  --color-green: #2cb775;
+  --color-orange: #ff9933;
+  --breakpoint-xxs: 345px;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@utility container {
+  @apply mx-auto max-w-none 2xl:max-w-[1800px] px-4 md:!px-10 lg:px-8;
+}
+@layer components {
+  .bg-body {
+    @apply bg-[url('/images/banners/bg-for-body.webp'),linear-gradient(#fcfaee,#fcfaee)] bg-center;
+  }
+  .bg-body2 {
+    @apply bg-[url('/images/banners/bg-for-body2.webp'),linear-gradient(#F0ECDC,#F0ECDC)] bg-center;
+  }
+  .bg-banner-subscription {
+    @apply bg-[linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)),url('/images/banners/banner2.webp')] bg-center bg-cover;
+  }
+  .bg-about-banner {
+    @apply bg-[linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('/images/banners/about-banner.webp')] bg-center bg-cover;
+  }
+  .bg-footer-banner {
+    @apply bg-[linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('/images/banners/footer-banner.webp')] bg-center bg-cover;
   }
 }
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .header-gradient {
+    background: linear-gradient(
+      180deg,
+      rgba(44, 183, 117) 0%,
+      rgba(222, 141, 61) 66.21%
+    );
+  }
+  .hoverEffect {
+    @apply transition-colors duration-300;
+  }
 }
+@layer base {
+  body {
+    @apply font-calibre;
+  }
+}
+@custom-variant hover (&:hover);
