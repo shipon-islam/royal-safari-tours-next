@@ -1,5 +1,4 @@
 
-import Facilities from "@/components/pages/home/Facilities";
 import GallerySlider from "@/components/pages/home/GallerySlider";
 import Hero from "@/components/pages/home/Hero";
 import Memories from "@/components/pages/home/Memories";
@@ -17,11 +16,12 @@ export default function Home() {
       <Hero />
       <TravelPartner />
       <SharedStories />
-      <Facilities />
+      {/* <Facilities /> */}
+      <NatureAndBeyond />
       <TourPackage />
       <Memories />
       <TravelCategory />
-      <NatureAndBeyond />
+      
       <Testimonials />
       <Subscription />
       <GallerySlider />
