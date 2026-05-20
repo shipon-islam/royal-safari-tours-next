@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npx next *)",
+      "PowerShell(Get-ChildItem \"c:\\\\Users\\\\user\\\\Desktop\\\\royal-safari-tours-next\\\\node_modules\\\\next\\\\dist\\\\docs\\\\01-app\\\\\" -Recurse | Where-Object { $_.Name -match \"sitemap|robots|metadata\" } | Select-Object FullName)",
+      "PowerShell(Get-ChildItem \"c:\\\\Users\\\\user\\\\Desktop\\\\royal-safari-tours-next\\\\node_modules\\\\next\\\\dist\\\\docs\\\\01-app\\\\03-api-reference\\\\\" -Recurse | Where-Object {$_.Name -match \"sitemap|robots|meta\"} | Select-Object FullName)",
+      "PowerShell($path = \"c:\\\\Users\\\\user\\\\Desktop\\\\royal-safari-tours-next\\\\node_modules\\\\next\\\\dist\\\\docs\\\\01-app\\\\03-api-reference\"; [System.IO.Directory]::GetDirectories\\($path\\))",
+      "PowerShell([System.IO.Directory]::GetFiles\\(\"c:\\\\Users\\\\user\\\\Desktop\\\\royal-safari-tours-next\\\\node_modules\\\\next\\\\dist\\\\docs\\\\01-app\\\\03-api-reference\\\\03-file-conventions\"\\) | ForEach-Object { [System.IO.Path]::GetFileName\\($_\\) })",
+      "PowerShell(Get-ChildItem \"c:\\\\Users\\\\user\\\\Desktop\\\\royal-safari-tours-next\\\\node_modules\\\\next\\\\dist\\\\docs\\\\\" -Recurse | ForEach-Object { $_.FullName } | Select-String -Pattern \"sitemap|robots\")"
+    ]
+  }
+}
