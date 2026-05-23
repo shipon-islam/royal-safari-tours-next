@@ -8,9 +8,14 @@ import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 export default function NatureAndBeyond({ tourPackages, locations }) {
   const searchParams = useSearchParams();
-
   const [showMore, setShowMore] = useState(false);
   const queryLocation = searchParams.get("location") || "all";
+  const packages =
+    queryLocation.toLowerCase() === "all"
+      ? tourPackages
+      : tourPackages.filter(
+          (pkg) => pkg.location.toLowerCase() === queryLocation.toLowerCase(),
+        );
   return (
     <div className="bg-body">
       <div className="container max-w-[1520px] py-14">
@@ -47,7 +52,7 @@ export default function NatureAndBeyond({ tourPackages, locations }) {
             </Link>
           ))}
         </div>
-        {tourPackages.length === 0 && (
+        {packages.length === 0 && (
           <div className="w-fit mx-auto text-center">
             <Image
               src="/images/dashboard/empty.png"
@@ -64,13 +69,13 @@ export default function NatureAndBeyond({ tourPackages, locations }) {
           id="tour_packages"
           className="grid grid-cols-2 lg:grid-cols-3 gap-3 xxs:gap-4 lg:gap-10 pt-20"
         >
-          {tourPackages
-            .slice(0, showMore ? tourPackages.length : 6)
+          {packages
+            .slice(0, showMore ? packages.length : 6)
             .map((tour_package) => (
               <TourCard key={tour_package._id} tour_package={tour_package} />
             ))}
         </div>
-        {tourPackages.length > 6 && (
+        {packages.length > 6 && (
           <div className="mx-auto block w-fit mt-5">
             <ShapeButton
               onClick={() => setShowMore((prev) => !prev)}
