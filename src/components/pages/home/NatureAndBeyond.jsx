@@ -18,7 +18,7 @@ export default function NatureAndBeyond({ tourPackages, locations }) {
         );
   return (
     <div className="bg-body">
-      <div className="container max-w-[1520px] py-14">
+      <div className="container max-w-380 py-14">
         <CommonHeading
           title="Nature & Beyond"
           subtitle="Unforgettable Journeys"
