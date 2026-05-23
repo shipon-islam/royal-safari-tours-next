@@ -14,7 +14,6 @@ const Editor = dynamic(() => import("@/components/dashboard/editor/Editor"), {
 
 export default function TourPackageForm({ tourPackage, locations }) {
   const [loading, setLoading] = useState(false);
-  const [isRefresh, setIsRefresh] = useState(false);
   const path = usePathname();
   const isEdit = path.includes("edit");
   const router = useRouter();
@@ -71,7 +70,6 @@ export default function TourPackageForm({ tourPackage, locations }) {
         if (data) {
           reset();
           setLoading(false);
-          setIsRefresh(!isRefresh);
           toast.success("Tour package updated successfully!");
           router.push("/dashboard/tour-packages");
         }
@@ -88,9 +86,8 @@ export default function TourPackageForm({ tourPackage, locations }) {
         const data = await res.json();
 
         if (data) {
-          reset();
+          // reset();
           setLoading(false);
-          setIsRefresh(!isRefresh);
           toast.success("Tour package created successfully!");
         }
       } catch (error) {

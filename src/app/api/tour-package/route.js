@@ -15,8 +15,7 @@ export async function POST(request) {
     !formData.has("price") ||
     !formData.has("rating") ||
     !formData.has("location") ||
-    !formData.has("days") ||
-    !formData.has("nights") ||
+    !formData.has("duration") ||
     !formData.has("shortDescription") ||
     !formData.has("image")
   ) {
@@ -28,7 +27,6 @@ export async function POST(request) {
 
   const token = request.cookies.get("token")?.value;
   const user = await verifyToken(token);
-  console.log(user);
   const {
     image,
     title,

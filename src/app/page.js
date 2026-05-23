@@ -11,17 +11,27 @@ import TourPackage from "@/components/pages/home/TourPackage";
 import TravelCategory from "@/components/pages/home/TravelCategory";
 import TravelPartner from "@/components/pages/home/TravelPartner";
 
-export default async function Home({searchParams }) { 
+export default async function Home({ searchParams }) {
   const { location } = await searchParams;
   const locations = await getTourLocations();
-  const tourPackages =await getTourPackageByLocation(location);
+  const tourPackages = await getTourPackageByLocation();
+  const filteredTourPackages = location
+    ? location === "all"
+      ? tourPackages
+      : tourPackages.filter(
+          (pkg) => pkg.location.toLowerCase() === location.toLowerCase(),
+        )
+    : tourPackages;
   return (
-    <main>     
+    <main>
       <Hero />
       <TravelPartner />
       <SharedStories locations={locations} />
       {/* <Facilities /> */}
-      <NatureAndBeyond tourPackages={tourPackages} locations={locations} />
+      <NatureAndBeyond
+        tourPackages={filteredTourPackages}
+        locations={locations}
+      />
       <TourPackage />
       <Memories />
       <TravelCategory />
