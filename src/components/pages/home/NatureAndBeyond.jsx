@@ -10,12 +10,14 @@ export default function NatureAndBeyond({ tourPackages, locations }) {
   const searchParams = useSearchParams();
   const [showMore, setShowMore] = useState(false);
   const queryLocation = searchParams.get("location") || "all";
+
   const packages =
     queryLocation.toLowerCase() === "all"
       ? tourPackages
       : tourPackages.filter(
           (pkg) => pkg.location.toLowerCase() === queryLocation.toLowerCase(),
         );
+
   return (
     <div className="bg-body">
       <div className="container max-w-380 py-14">
@@ -80,7 +82,7 @@ export default function NatureAndBeyond({ tourPackages, locations }) {
             <ShapeButton
               onClick={() => setShowMore((prev) => !prev)}
               name={showMore ? "SEE LESS" : "SEE MORE"}
-              className="!text-orange "
+              className="text-orange! "
             />
           </div>
         )}
