@@ -2,7 +2,7 @@ import { useState } from "react";
 import { truncateHTML } from "./TruncateHTML";
 const initialWord = 150;
 
-function StringToDomComponent({ htmlString }: { htmlString: string }) {
+function StringToDomComponent({ htmlString }) {
   const [word, setWord] = useState(initialWord);
   const { htmlText, wordCount } = truncateHTML(htmlString, word) ?? {
     htmlText: "",

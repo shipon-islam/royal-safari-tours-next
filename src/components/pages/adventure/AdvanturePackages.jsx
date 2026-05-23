@@ -1,4 +1,4 @@
-import TourCard from "@/components/TourCard";
+import TourCard2 from "@/components/TourCard2";
 import { adventureCollections } from "@/constants/adventure_collection";
 import { useState } from "react";
 
@@ -53,8 +53,7 @@ export default function AdvanturePackages() {
         </div>
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 xxs:gap-4 lg:gap-10">
           {adventureCollections.map((tour_package) => (
-            <TourCard
-              type="green"
+            <TourCard2
               key={tour_package.id}
               tour_package={tour_package}
             />

@@ -3,7 +3,6 @@ export const truncateHTML = (html, wordLimit = 20) => {
   if (typeof window === "undefined") {
   return { htmlText: "", wordCount: 0 };
 }
-
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, "text/html");
 

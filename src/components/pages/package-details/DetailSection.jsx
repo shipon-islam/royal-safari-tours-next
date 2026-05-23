@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Rating from "@/components/Rating";
 import {
   BookingCardIcon,
@@ -8,24 +8,18 @@ import {
 import { Icon } from "@iconify/react";
 import Image from "next/image";
 import { useState } from "react";
-export default function DetailSection({ packages }) {
+export default function DetailSection({ tourPackage }) {
   const [tabIndex, setTabIndex] = useState(1);
   const [cartItem, setCartItem] = useState(1);
 
   return (
     <section className="container py-6 sm:py-20 relative">
-      <button className="bg-green p-3.5 font-semibold text-white  gap-2 items-center rounded-sm fixed right-10 top-4/5 cursor-pointer hidden  lg:flex">
-        <span>
-          Recently <br /> Viewed
-        </span>
-        <Icon icon="fe:arrow-down" width="20" height="20" />
-      </button>
       <div className="max-w-[1500px] mx-auto">
         <div className="grid lg:grid-cols-2 xl:grid-cols-[1fr_1.2fr] gap-10 sm:w-[90%] md:w-[70%] lg:w-full mx-auto">
           <div>
             <Image
-              src={packages?.image}
-              alt={packages?.name||"package image"}
+              src={`/api/uploads/tour-packages/${tourPackage.image}`}
+              alt={tourPackage?.title || "package image"}
               width={1000}
               height={770}
               loading="eager"
@@ -35,7 +29,7 @@ export default function DetailSection({ packages }) {
           <div>
             <div className="flex items-center gap-4">
               <Rating
-                rating={packages?.rating}
+                rating={tourPackage?.rating}
                 className="text-yellow-400 size-4 sm:size-5"
               />
               <div className="flexs hidden gap-2 items-center">
@@ -49,12 +43,13 @@ export default function DetailSection({ packages }) {
               <h5 className="font-bold text-xl sm:text-2xl md:text-3xl my-6">
                 Official Prices May Vary!
               </h5>
-              <p className="leading-[26px]">{packages?.description?.details}</p>
+              <p className="leading-[26px]">{tourPackage?.shortDescription}</p>
             </div>
             <div className="flex  items-center gap-2 sm:gap-10 mt-8">
               <h5 className="font-bold">Duration</h5>
-              <button className="bg-black text-white px-10 py-2 font-semibold">
-                {packages?.duration}
+              <button className="bg-black text-white px-10 py-2 font-semibold capitalize">
+                {tourPackage?.duration}
+               
               </button>
             </div>
             <div className="mt-15 md:mt-48 max-w-[550px] text-sm lg:text-sm xl:text-base">
@@ -162,37 +157,25 @@ export default function DetailSection({ packages }) {
             </button>
           </div>
           {tabIndex === 1 && (
-            <div label="description" className="p-4 sm:p-8">
-              <p>{packages?.description?.details}</p>
-              <div className="mt-8">
-                <h5 className="font-bold">This Trip Includes</h5>
-                <ul className="space-y-2 mt-4 text-base list-disc ml-5">
-                  {packages?.description?.tripIncludes.map((item, index) => (
-                    <li key={index}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-8">
-                <h5 className="font-bold">Additional Information</h5>
-                <ul className="space-y-2 mt-4 text-base list-disc ml-5">
-                  {packages?.description?.additionalInfo.map((item, index) => (
-                    <li key={index}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            <div
+              className="p-4 sm:p-8 ql-editor"
+              dangerouslySetInnerHTML={{
+                __html: tourPackage?.description
+                  .replace(/&nbsp;/g, " ")
+                  .replace(/<p><\/p>/g, ""),
+              }}
+            />
           )}
           {tabIndex === 2 && (
-            <div label="Additional Information" className="p-4 sm:p-8">
-              <div>
-                <h5 className="font-bold">More Information</h5>
-                <ul className="space-y-2 mt-4 text-base">
-                  {packages?.additionalInfo.map((item, index) => (
-                    <li key={index}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            <div
+              label="Additional Information"
+              className="p-4 sm:p-8 ql-editor"
+              dangerouslySetInnerHTML={{
+                __html: tourPackage?.additionalInfo
+                  .replace(/&nbsp;/g, " ")
+                  .replace(/<p><\/p>/g, ""),
+              }}
+            />
           )}
           {tabIndex === 3 && (
             <div label="Reviews" className="p-4 sm:p-8">

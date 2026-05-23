@@ -1,20 +1,14 @@
 "use client";
 import Button from "@/components/Button";
-import { blogYupSchema } from "@/yup/blogYupSchema";
+import { locationYupSchema } from "@/yup/locationYupSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-
 import { useState } from "react";
-import { Controller, useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-const Editor = dynamic(() => import("@/components/dashboard/editor/Editor"), {
-  ssr: false,
-});
-
-export default function BlogForm({ blog }) {
+export default function TourLocationForm({ location }) {
   const [loading, setLoading] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
   const path = usePathname();
@@ -23,62 +17,51 @@ export default function BlogForm({ blog }) {
 
   const {
     reset,
-    control,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      title: blog?.title || "",
-      content: blog?.content || "",
-      shortDescription: blog?.shortDescription || "",
+      country: location?.country || "",
       image: [],
     },
-    resolver: yupResolver(blogYupSchema(isEdit)),
-  });
- const shortDescriptionField = useWatch({
-    control,
-    name: "shortDescription",
+    resolver: yupResolver(locationYupSchema(isEdit)),
   });
   //for submitting the form
   const onSubmit = async (e) => {
     const formData = new FormData();
-    formData.append("title", e.title);
-    formData.append("content", e.content);
-    formData.append("shortDescription", e.shortDescription);
+    formData.append("country", e.country);
     if (e.image && e.image.length > 0) {
       formData.append("image", e.image[0]);
     }
     setLoading(true);
 
     if (isEdit) {
-      formData.append("existingImage", blog.image);
+      formData.append("existingImage", location.image);
 
       try {
-        const res = await fetch(`/api/blog/${blog?._id}`, {
+        const res = await fetch(`/api/tour-location/${location?._id}`, {
           method: "PUT",
           body: formData,
         });
         const data = await res.json();
         if (data) {
           reset({
-            title: "",
-            content: "",
-            shortDescription: "",
+            country: "",
             image: [],
           });
           setLoading(false);
           setIsRefresh(!isRefresh);
-          toast.success("Blog updated successfully!");
-          router.push("/dashboard");
+          toast.success("Tour location updated successfully!");
+          router.push("/dashboard/tour-locations");
         }
       } catch (error) {
         toast.error(error.message);
-        console.error("Error updating blog:", error);
+        console.error("Error updating tour location:", error);
       }
     } else {
       try {
-        const res = await fetch("/api/blog", {
+        const res = await fetch("/api/tour-location", {
           method: "POST",
           body: formData,
         });
@@ -88,7 +71,7 @@ export default function BlogForm({ blog }) {
           reset();
           setLoading(false);
           setIsRefresh(!isRefresh);
-          toast.success("Blog created successfully!");
+          toast.success("Tour location created successfully!");
         }
       } catch (error) {
         console.log(error);
@@ -103,14 +86,14 @@ export default function BlogForm({ blog }) {
       <div className="mt-10">
         <div className="flex justify-between mt-8">
           <h1 className="text-2xl font-bold">
-            {isEdit ? "Update" : "Create"} new blog
+            {isEdit ? "Update" : "Create new"} tour locations
           </h1>
           <Link
-            className="bg-slate text-white px-4 py-2 rounded-xl"
-            href="/dashboard/"
+            className="bg-orange text-white px-4 py-2 rounded-xl"
+            href="/dashboard/tour-locations"
           >
             {" "}
-            See Blogs
+            See locations
           </Link>
         </div>
         <form
@@ -120,66 +103,24 @@ export default function BlogForm({ blog }) {
         >
           <div>
             <label htmlFor="" className="mb-1 block">
-              Blog Title:
+              Country:
             </label>
             <input
               type="text"
               className="border border-gray-500 p-4 rounded-md w-full block"
-              placeholder="Post Title"
-              {...register("title")}
+              placeholder="Country"
+              {...register("country")}
             />
-            {errors.title && (
+            {errors.country && (
               <p className="text-red-500 ml-1 mt-1 block text-sm capitalize ">
-                {errors.title.message}
+                {errors.country.message}
               </p>
             )}
           </div>
+         
           <div>
             <label htmlFor="" className="mb-1 block">
-              Short Description:
-            </label>
-            <textarea
-              placeholder="Write something..."
-              className={`border border-gray-300 w-full focus:outline-0 rounded-md p-3 min-h-24 focus:outline-none ${
-                errors.shortDescription ? "border-red-500" : "border-gray-300"
-              }`}
-              {...register("shortDescription")}
-            ></textarea>
-            <div className="flex items-center justify-between">
-              {errors.shortDescription && (
-                <p className="text-red-500 text-sm mt-1 ml-1">
-                  {errors.shortDescription.message}
-                </p>
-              )}
-              <p
-                className={`w-fit ml-auto ${shortDescriptionField.length > 150 && "text-red"}`}
-              >
-                {shortDescriptionField.length}
-              </p>
-            </div>
-          </div>
-          <div>
-            <label className="mb-4 block">Description: </label>
-            <Controller
-              name="content"
-              control={control}
-              render={({ field }) => (
-                <Editor
-                  value={field.value}
-                  onChange={(val) => field.onChange(val)}
-                />
-              )}
-            />
-
-            {errors.content && (
-              <span className="text-red-500 ml-1 mt-1 block text-sm capitalize">
-                {errors.content.message}
-              </span>
-            )}
-          </div>
-          <div>
-            <label htmlFor="" className="mb-1 block">
-              Blog Thumbnail Image:
+              Tour Location Image:
             </label>
             <input
               type="file"

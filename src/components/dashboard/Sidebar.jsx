@@ -1,11 +1,10 @@
 "use client";
+import { Icon } from "@iconify/react";
 import Link from "next/link";
 import { useState } from "react";
 import {
-  ClientIcon,
   LeftArrowIcon,
-  RightArrowIcon,
-  SubscribeIcon
+  RightArrowIcon
 } from "../SvgIcons";
 
 const Sidebar = () => {
@@ -30,26 +29,43 @@ const Sidebar = () => {
          
           <Link
             onClick={() => setIsSidebar(false)}
-            href="/dashboard/"
+            href="/dashboard/tour-packages"
             className="flex items-center gap-2 py-2 px-4 rounded-md hover:bg-deepBlue "
           >
-            <ClientIcon />
-            <span>Users</span>
+             <Icon icon="carbon:tour" width="24" height="24"/>
+            <span>Tour Packages</span>
           </Link>
+          <Link
+            onClick={() => setIsSidebar(false)}
+            href="/dashboard/tour-locations"
+            className="flex items-center gap-2 py-2 px-4 rounded-md hover:bg-deepBlue "
+          >
+            <Icon icon="ep:place" width="24" height="24" />
+            <span>Tour Locations</span>
+          </Link>
+          
           <Link
             onClick={() => setIsSidebar(false)}
             href="/dashboard/contact-requests"
             className="flex items-center gap-2 py-2 px-4 rounded-md hover:bg-deepBlue "
           >
-            <SubscribeIcon />
+             <Icon icon="material-symbols:contact-mail-outline-rounded" width="22" height="24"/>
             <span>Contact Requests</span>
+          </Link>
+          <Link
+            onClick={() => setIsSidebar(false)}
+            href="/dashboard/"
+            className="flex items-center gap-2 py-2 px-4 rounded-md hover:bg-deepBlue "
+          >
+             <Icon icon="flowbite:users-outline" width="24" height="24"/>
+            <span>Users</span>
           </Link>
           <Link
             onClick={() => setIsSidebar(false)}
             href="/dashboard/subscribers"
             className="flex items-center gap-2 py-2 px-4 rounded-md hover:bg-deepBlue "
           >
-            <SubscribeIcon />
+             <Icon icon="fluent-mdl2:subscribe" width="20" height="24"/>
             <span>Subscribers</span>
           </Link>
         </nav>

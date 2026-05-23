@@ -86,7 +86,7 @@ export default function ShapeButton({ name, className, ...rest }) {
           </clipPath>
         </defs>
       </svg>
-      <span className="absolute w-full top-1/2 left-1/2 -translate-1/2 text-white">
+      <span className="absolute w-full top-1/2 left-1/2 -translate-1/2 text-white capitalize">
         {name}
       </span>
     </button>

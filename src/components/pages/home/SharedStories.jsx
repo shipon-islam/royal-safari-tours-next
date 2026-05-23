@@ -1,22 +1,9 @@
-"use client"
-import china from "@/assets/story/china.webp";
-import maldives from "@/assets/story/maldives.webp";
-import nepal from "@/assets/story/nepal.webp";
-import srilanka from "@/assets/story/srilanka.webp";
-import thailand from "@/assets/story/thailand.webp";
+"use client";
 import StoryCard from "@/components/StoryCard";
+import Image from "next/image";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-const stories = [
-  { id: 1, image: china, country: "china" },
-  { id: 2, image: maldives, country: "maldives" },
-  { id: 3, image: srilanka, country: "srilanka" },
-  { id: 4, image: nepal, country: "Nepal" },
-  { id: 5, image: thailand, country: "Thailand" },
-];
-
-export default function SharedStories() {
+export default function SharedStories({ locations }) {
   return (
     <div className="bg-body">
       <div className="container grid lg:grid-cols-[1fr_2fr] items-center gap-5 xl:gap-8 py-16">
@@ -62,11 +49,24 @@ export default function SharedStories() {
             },
           }}
         >
-          {stories.map((story) => (
+          {locations?.map((story) => (
             <SwiperSlide className=" py-8" key={story.id}>
               <StoryCard story={story} />
             </SwiperSlide>
           ))}
+          {locations?.length === 0 && (
+            <div className="w-fit mx-auto text-center">
+              <Image
+                src="/images/dashboard/empty.png"
+                width={400}
+                height={400}
+                alt="empty"
+              />
+              <p className="text-gray-500 text-xl mt-8 font-inter">
+                There is no tour location yet!
+              </p>
+            </div>
+          )}
         </Swiper>
       </div>
     </div>

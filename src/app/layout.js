@@ -3,7 +3,6 @@ import GTMPageViewTracker from "@/components/GTMPageViewTracker";
 import Header from "@/components/Header";
 import ScrollButton from "@/components/ScrollButton";
 import ToastProvider from "@/components/ToastProvider";
-import { TourContextProvider } from "@/context/TourContextProvider";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { Geist, Geist_Mono } from "next/font/google";
 import "swiper/css";
@@ -34,7 +33,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col">
         <GTMPageViewTracker />
         <Header />
-        <TourContextProvider>{children}</TourContextProvider>
+        {children}
         <Footer />
         <ScrollButton />
         <ToastProvider />
