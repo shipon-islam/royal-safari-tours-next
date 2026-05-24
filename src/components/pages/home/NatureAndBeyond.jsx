@@ -2,19 +2,17 @@
 import CommonHeading from "@/components/CommonHeading";
 import ShapeButton from "@/components/ShapeButton";
 import TourCard from "@/components/TourCard";
+import { UseTourState } from "@/context/TourContextProvider";
 import Image from "next/image";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 export default function NatureAndBeyond({ tourPackages, locations }) {
-  const searchParams = useSearchParams();
   const [showMore, setShowMore] = useState(false);
-  const queryLocation = searchParams.get("location") || "all";
+  const { location: queryLocation, categoryChangeHandler } = UseTourState();
 
   const packages =
-    queryLocation.toLowerCase() === "all"
+    queryLocation?.toLowerCase() === "all"
       ? tourPackages
-      : tourPackages.filter(
+      : tourPackages?.filter(
           (pkg) => pkg.location.toLowerCase() === queryLocation.toLowerCase(),
         );
 
@@ -26,32 +24,27 @@ export default function NatureAndBeyond({ tourPackages, locations }) {
           subtitle="Unforgettable Journeys"
         />
         <div className="flex flex-wrap justify-center gap-4 w-fit mx-auto my-8">
-          <Link scroll={false} href={`/?location=all`}>
+          <ShapeButton
+            name="All"
+            className={`group-hover:text-black hoverEffect  ${
+              queryLocation && queryLocation.toLowerCase() === "all"
+                ? "text-black!"
+                : ""
+            }`}
+          />
+
+          {locations.map((location) => (
             <ShapeButton
-              name="All"
-              className={`group-hover:text-black hoverEffect  ${
-                queryLocation && queryLocation.toLowerCase() === "all"
+              key={location._id}
+              name={location.country}
+              className={`group-hover:text-black hoverEffect capitalize ${
+                queryLocation &&
+                queryLocation.toLowerCase() === location.country.toLowerCase()
                   ? "text-black!"
                   : ""
               }`}
+              onClick={() => categoryChangeHandler(location.country)}
             />
-          </Link>
-          {locations.map((location) => (
-            <Link
-              scroll={false}
-              href={`/?location=${location.country}`}
-              key={location._id}
-            >
-              <ShapeButton
-                name={location.country}
-                className={`group-hover:text-black hoverEffect capitalize ${
-                  queryLocation &&
-                  queryLocation.toLowerCase() === location.country.toLowerCase()
-                    ? "text-black!"
-                    : ""
-                }`}
-              />
-            </Link>
           ))}
         </div>
         {packages.length === 0 && (

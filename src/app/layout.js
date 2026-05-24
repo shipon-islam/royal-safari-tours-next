@@ -3,6 +3,7 @@ import GTMPageViewTracker from "@/components/GTMPageViewTracker";
 import Header from "@/components/Header";
 import ScrollButton from "@/components/ScrollButton";
 import ToastProvider from "@/components/ToastProvider";
+import { TourContextProvider } from "@/context/TourContextProvider";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { Geist, Geist_Mono } from "next/font/google";
 import "swiper/css";
@@ -20,7 +21,8 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "Royal Safari Tours",
-  description: "Royal Safari Tours is a Khilgaon-based travel agency dedicated to delivering premium yet affordable tour experiences across South Asia and beyond. From the vibrant streets of Kathmandu to the serene coasts of the Maldives, our journeys are designed to inspire, excite, and rejuvenate.Founded by passionate travelers, we bring deep regional knowledge and heartfelt hospitality to every itinerary.",
+  description:
+    "Royal Safari Tours is a Khilgaon-based travel agency dedicated to delivering premium yet affordable tour experiences across South Asia and beyond. From the vibrant streets of Kathmandu to the serene coasts of the Maldives, our journeys are designed to inspire, excite, and rejuvenate.Founded by passionate travelers, we bring deep regional knowledge and heartfelt hospitality to every itinerary.",
 };
 
 export default function RootLayout({ children }) {
@@ -33,7 +35,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col">
         <GTMPageViewTracker />
         <Header />
-        {children}
+        <TourContextProvider>{children}</TourContextProvider>
         <Footer />
         <ScrollButton />
         <ToastProvider />
