@@ -26,6 +26,7 @@ export default function NatureAndBeyond({ tourPackages, locations }) {
         <div className="flex flex-wrap justify-center gap-4 w-fit mx-auto my-8">
           <ShapeButton
             name="All"
+            onClick={() => categoryChangeHandler("all")}
             className={`group-hover:text-black hoverEffect  ${
               queryLocation && queryLocation.toLowerCase() === "all"
                 ? "text-black!"
