@@ -100,12 +100,12 @@ export default function TourPackageForm({ tourPackage, locations }) {
   return (
     <div className="md:w-4/5 mx-auto">
       <div className="mt-10">
-        <div className="flex justify-between mt-8">
+        <div className="flex justify-between items-center mt-8">
           <h1 className="text-2xl font-bold">
             {isEdit ? "Update" : "Create new"} tour package
           </h1>
           <Link
-            className="bg-orange text-white px-4 py-2 rounded-xl"
+            className="bg-orange text-white px-4 py-2 rounded-xl text-nowrap"
             href="/dashboard/tour-packages"
           >
             {" "}
@@ -308,7 +308,7 @@ export default function TourPackageForm({ tourPackage, locations }) {
           ) : (
             <Button
               name={loading ? "Publishing..." : "Publish"}
-              className="bg-blue-600! text-white rounded-lg  w-fit ml-auto"
+              className="bg-green! text-white rounded-lg  w-fit ml-auto"
             />
           )}
         </form>

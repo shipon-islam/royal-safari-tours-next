@@ -8,21 +8,22 @@ import { LeftArrowIcon, RightArrowIcon } from "../SvgIcons";
 const Sidebar = () => {
   const [isSidebar, setIsSidebar] = useState(false);
   const path = usePathname();
+
   return (
     <div
-      className={`bg-green text-white h-screen w-72 sm:w-96 p-6 flex flex-col gap-8 fixed lg:sticky top-0 z-100 lg:rounded-[20px]  ${
+      className={`bg-green sidebar text-white h-screen w-72 sm:w-96 p-6 flex flex-col gap-8 fixed lg:sticky top-0 z-100 lg:rounded-[20px]  ${
         isSidebar ? "left-[0px]" : "-left-[290px] sm:-left-[385px]"
       }`}
     >
       <div className="relative w-full h-full">
         <button
           onClick={() => setIsSidebar((prev) => !prev)}
-          className="absolute top-32 sm:top-20 -right-[60px]  bg-[#0A1F44] h-10 w-10 grid place-items-center rounded-r-full lg:hidden cursor-pointer"
+          className="absolute sidebar-button top-32 sm:top-20 -right-[60px]  bg-green h-10 w-10 grid place-items-center rounded-r-full lg:hidden cursor-pointer z-99"
         >
           {isSidebar ? <RightArrowIcon /> : <LeftArrowIcon />}
         </button>
         <h1 className="text-3xl font-bold px-4">Admin</h1>
-        <nav className="flex flex-col gap-y-8 text-lg mt-8">
+        <nav className="flex flex-col gap-y-8 text-lg mt-8 sidebar">
           <Link
             onClick={() => setIsSidebar(false)}
             href="/dashboard"

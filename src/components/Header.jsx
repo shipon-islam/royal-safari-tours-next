@@ -1,6 +1,7 @@
 "use client";
 import royal_logo from "@/assets/logo/royal-logo.png";
 import royal_logo2 from "@/assets/logo/royal-safari-2.png";
+import { useAuth } from "@/hook/useAuth";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -32,6 +33,8 @@ export default function Header() {
   const [isShowNav, setIsShowNav] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const { user } = useAuth();
+  const isAdmin =user? user?.role === "admin": false;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -68,7 +71,7 @@ export default function Header() {
                   />
                 </Link>
               </div>
-              <ul className="hidden xl:absolute left-1/2 xl:-translate-x-1/2 lg:flex space-x-18 text-xl">
+              <ul className="hidden xl:absolute left-1/2 xl:-translate-x-1/2 lg:flex space-x-18 xl:space-x-13 2xl:space-x-18 text-xl">
                 {links.map((link) => (
                   <li key={link.id}>
                     <Link
@@ -81,6 +84,18 @@ export default function Header() {
                     </Link>
                   </li>
                 ))}
+                {isAdmin && (
+                  <li>
+                    <Link
+                      href="/dashboard"
+                      className={`hover:text-orange-400 transition-colors duration-300 ${
+                        pathname == "/dashboard" && "text-orange-400"
+                      }`}
+                    >
+                      DASHBOARD
+                    </Link>
+                  </li>
+                )}
               </ul>
 
               <button
@@ -129,6 +144,21 @@ export default function Header() {
                         </Link>
                       </li>
                     ))}
+                    {isAdmin && (
+                      <li>
+                        <Link
+                          onClick={() => setIsShowNav((prev) => !prev)}
+                          href="/dashboard"
+                          className={`hover:text-white transition-colors duration-300 ${
+                            pathname == "/dashboard"
+                              ? "text-white"
+                              : "text-black"
+                          }`}
+                        >
+                          DASHBOARD
+                        </Link>
+                      </li>
+                    )}
                   </ul>
                   <a
                     href="https://api.whatsapp.com/send?phone=8801898334733"

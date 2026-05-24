@@ -84,12 +84,12 @@ export default function TourLocationForm({ location }) {
   return (
     <div className="md:w-4/5 mx-auto">
       <div className="mt-10">
-        <div className="flex justify-between mt-8">
+        <div className="flex justify-between items-center gap-4 mt-8">
           <h1 className="text-2xl font-bold">
             {isEdit ? "Update" : "Create new"} tour locations
           </h1>
           <Link
-            className="bg-orange text-white px-4 py-2 rounded-xl"
+            className="bg-orange text-white px-4 py-2 rounded-xl text-nowrap"
             href="/dashboard/tour-locations"
           >
             {" "}
@@ -141,7 +141,7 @@ export default function TourLocationForm({ location }) {
           ) : (
             <Button
               name={loading ? "Publishing..." : "Publish"}
-              className="bg-blue-600! text-white rounded-lg  w-fit ml-auto"
+              className="bg-green! text-white rounded-lg  w-fit ml-auto"
             />
           )}
         </form>
