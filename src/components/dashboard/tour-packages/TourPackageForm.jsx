@@ -86,7 +86,7 @@ export default function TourPackageForm({ tourPackage, locations }) {
         const data = await res.json();
 
         if (data) {
-          // reset();
+          reset();
           setLoading(false);
           toast.success("Tour package created successfully!");
         }
