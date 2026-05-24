@@ -1,14 +1,16 @@
-import { getTourLocations } from "@/actions/tour-location";
-import { getTourPackageBySlug } from "@/actions/tour-package";
+import { getTourPackageWithSlugAndLocations } from "@/actions/tour-package";
 import TourPackageForm from "@/components/dashboard/tour-packages/TourPackageForm";
+import toast from "react-hot-toast";
 
 export default async function TourPackageEdit({ params }) {
   const { slug } = await params;
-  const tourPackage = await getTourPackageBySlug(slug);
-  const locations=await getTourLocations()
+  const results= await getTourPackageWithSlugAndLocations(slug);
+    if (!results.success) {
+      return toast.error(results.message || "Failed to fetch tour package details");
+    }
   return (
     <div>
-      <TourPackageForm tourPackage={tourPackage} locations={locations} />
+      <TourPackageForm tourPackage={results?.tourPackage} locations={results?.locations} />
     </div>
   );
 }

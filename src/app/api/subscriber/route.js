@@ -1,5 +1,6 @@
 import { db_connect } from "@/database";
 import { SubscriberModel } from "@/database/models/subscribeModel";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
@@ -17,7 +18,7 @@ export async function POST(request) {
     if (isEmail) {
       return NextResponse.json(
         { error: "Email already subscribed" },
-        { status: 409 }
+        { status: 409 },
       );
     }
     const subsciberData = await SubscriberModel.create({
@@ -28,7 +29,8 @@ export async function POST(request) {
     if (!subsciberData) {
       return NextResponse.json({ error: "Subscribe failed" }, { status: 500 });
     }
-
+    const paths = ["/dashboard/subscribers"];
+    paths.forEach((p) => revalidatePath(p));
     return NextResponse.json(subsciberData, {
       status: 200,
       headers: {
@@ -39,7 +41,7 @@ export async function POST(request) {
     console.log(error);
     return NextResponse.json(
       { error: "something went wrong" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -52,7 +54,7 @@ export async function GET(request) {
     if (!subscribeData) {
       return NextResponse.json(
         { error: "Subscriber fetch failed" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -66,7 +68,7 @@ export async function GET(request) {
     console.log(error);
     return NextResponse.json(
       { error: "something went wrong" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

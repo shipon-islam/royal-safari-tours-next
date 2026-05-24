@@ -2,6 +2,7 @@ import { db_connect } from "@/database";
 import { UserModel } from "@/database/models/userModel";
 import { deleteFile } from "@/lib/deleteFile";
 import { fileuploader } from "@/lib/fileuploader";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function PUT(request, context) {
@@ -41,6 +42,8 @@ export async function PUT(request, context) {
     if (formData.has("avatar") && formData.has("oldAvatar")) {
       deleteFile("user", body.oldAvatar);
     }
+        const paths = ["/dashboard/users","/dashboard/account"];
+        paths.forEach((p) => revalidatePath(p));
     return NextResponse.json(
       { message: "User updated successfully" },
       {
@@ -66,6 +69,9 @@ export async function DELETE(request, context) {
     if (!userData) {
       return NextResponse.json({ error: "user not found" }, { status: 404 });
     }
+    const paths = ["/dashboard/users","/dashboard/account"];
+    paths.forEach((p) => revalidatePath(p));
+    
     return NextResponse.json(
       { message: "user deleted successfully" },
       {

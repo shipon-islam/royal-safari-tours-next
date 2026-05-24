@@ -1,11 +1,18 @@
-import { getTourLocationsByPagination } from '@/actions/tour-location';
-import TourLocationCardPage from '@/components/dashboard/location/TourLocationPage';
+import { getTourLocationsByPagination } from "@/actions/tour-location";
+import TourLocationCardPage from "@/components/dashboard/location/TourLocationPage";
+import toast from "react-hot-toast";
 export default async function TourLocation({ searchParams }) {
   const { page } = await searchParams;
-  const { data: tourPackages, pagination } = await getTourLocationsByPagination(page);
+  const results = await getTourLocationsByPagination(page);
+  if (!results.success) {
+    return toast.error(results.message);
+  }
   return (
     <div>
-      <TourLocationCardPage tourPackages={tourPackages} pagination={pagination} />
+      <TourLocationCardPage
+        tourPackages={results.data}
+        pagination={results.pagination}
+      />
     </div>
-  )
+  );
 }

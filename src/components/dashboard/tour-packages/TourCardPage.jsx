@@ -8,6 +8,7 @@ export default function TourCardPage({ tourPackages, pagination }) {
   const router = useRouter();
   const isPrev = Number(pagination.page) === 1;
   const isNext = Number(pagination.page) === pagination.totalPages;
+ 
   //for deleting a blog
   const handleDelete = async (id) => {
     const userConfirmed = confirm("Are you sure you want to delete this item?");
@@ -46,6 +47,7 @@ export default function TourCardPage({ tourPackages, pagination }) {
               src="/images/dashboard/empty.png"
               width={400}
               height={400}
+              loading="eager"
               alt="empty"
             />
             <p className="text-gray-500 text-xl mt-8 font-inter">
@@ -115,7 +117,7 @@ export default function TourCardPage({ tourPackages, pagination }) {
           <Link
             key={i}
             href={`/dashboard/tour-packages?page=${i + 1}`}
-            className={`px-3 py-1 border rounded-md ${pagination.page === (i + 1).toString() ? "bg-orange  border-orange text-white" : "hover:bg-gray-200"}`}
+            className={`px-3 py-1 border rounded-md ${pagination.page.toString() === (i + 1).toString() ? "bg-orange  border-orange text-white" : "hover:bg-gray-200"}`}
           >
             {i + 1}
           </Link>

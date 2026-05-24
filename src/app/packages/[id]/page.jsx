@@ -1,9 +1,13 @@
 import { getTourPackageBySlug } from "@/actions/tour-package";
 import HeroSection from "@/components/HeroSection";
 import DetailSection from "@/components/pages/package-details/DetailSection";
+import toast from "react-hot-toast";
 export default async function PackageDetails({ params }) {
   const { id } = await params;
-  const tourPackage = await getTourPackageBySlug(id);
+  const result = await getTourPackageBySlug(id);
+  if (!result.success) {
+    return toast.error(result.message || "Failed to fetch tour package details");
+  }
   return (
     <>
       <HeroSection banner="/images/banners/contact.webp">
@@ -13,7 +17,7 @@ export default async function PackageDetails({ params }) {
           </h5>
         </div>
       </HeroSection>
-      <DetailSection tourPackage={tourPackage} />
+      <DetailSection tourPackage={result.data} />
     </>
   );
 }

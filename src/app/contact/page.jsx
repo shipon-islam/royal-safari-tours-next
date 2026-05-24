@@ -2,7 +2,7 @@ import HeroSection from "@/components/HeroSection";
 import Sponsors from "@/components/pages/about-us/Sponsors";
 import ContactForm from "@/components/pages/contact/ContactForm";
 
-export default function page() {
+export default function Contact() {
   return (
     <div>
       <HeroSection banner="/images/banners/contact.webp">

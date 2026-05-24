@@ -1,5 +1,4 @@
-import { getTourLocations } from "@/actions/tour-location";
-import { getTourPackageByLocation } from "@/actions/tour-package";
+import { getTourPackagesAndLocations } from "@/actions/tour-package";
 import GallerySlider from "@/components/pages/home/GallerySlider";
 import Hero from "@/components/pages/home/Hero";
 import Memories from "@/components/pages/home/Memories";
@@ -10,20 +9,22 @@ import Testimonials from "@/components/pages/home/Testimonials";
 import TourPackage from "@/components/pages/home/TourPackage";
 import TravelCategory from "@/components/pages/home/TravelCategory";
 import TravelPartner from "@/components/pages/home/TravelPartner";
+import toast from "react-hot-toast";
 
 export default async function Home() {
-  const locations = await getTourLocations();
-  const tourPackages = await getTourPackageByLocation();
-
+  const results = await getTourPackagesAndLocations();
+  if (!results.success) {
+    toast.error(results.message);
+  }
   return (
     <main>
       <Hero />
       <TravelPartner />
-      <SharedStories locations={locations} />
+      <SharedStories locations={results.locations} />
       {/* <Facilities /> */}
       <NatureAndBeyond
-        tourPackages={tourPackages}
-        locations={locations}
+        tourPackages={results.tourPackages}
+        locations={results.locations}
       />
       <TourPackage />
       <Memories />

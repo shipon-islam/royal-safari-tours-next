@@ -1,5 +1,6 @@
 import { db_connect } from "@/database";
 import { SubscriberModel } from "@/database/models/subscribeModel";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function DELETE(request, context) {
@@ -10,9 +11,11 @@ export async function DELETE(request, context) {
     if (!subscriberData) {
       return NextResponse.json(
         { error: "Subscriber not found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
+    const paths = ["/dashboard/subscribers"];
+    paths.forEach((p) => revalidatePath(p));
     return NextResponse.json(
       { message: "Subscriber deleted successfully" },
       {
@@ -20,13 +23,13 @@ export async function DELETE(request, context) {
         headers: {
           "Content-Type": "application/json",
         },
-      }
+      },
     );
   } catch (error) {
     console.log(error);
     return NextResponse.json(
       { error: "something went wrong" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
