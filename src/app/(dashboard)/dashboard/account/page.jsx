@@ -3,6 +3,7 @@ import Button from "@/components/Button";
 import Card from "@/components/dashboard/Card";
 import { EditIcon } from "@/components/SvgIcons";
 import { useAuth } from "@/hook/useAuth";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
@@ -64,67 +65,69 @@ export default function Account() {
   };
   return (
     <div>
-      <div className="max-w-3/4 mx-auto mt-10">
+      <div className="w-full md:max-w-3/4 mx-auto mt-10">
         <Card className="">
           <h1 className="text-2xl font-bold mb-4">Account Information</h1>
-          <div className="grid grid-cols-2">
+          <div className="grid sm:grid-cols-2">
             <div>
-            <h5>Profile picture</h5>
-            <div className="border w-fit rounded-md">
-              <img
-                src={
-                  user?.avatar
-                    ? `/api/uploads/user/${user?.avatar}`
-                    : "/avatar.png"
-                }
-                alt="User Avatar"
-                className="w-40 h-40 "
+              <h5>Profile picture</h5>
+              <div className="border w-fit rounded-md mt-2">
+                <Image
+                  src={
+                    user?.avatar
+                      ? `/api/uploads/user/${user?.avatar}`
+                      : "/avatar.png"
+                  }
+                  alt="User Avatar"
+                  width={160}
+                  height={160}
+                  className="w-40 h-40 "
+                />
+              </div>
+              <input
+                ref={fileRef}
+                type="file"
+                accept="image/*"
+                onChange={handleProfileChange}
+                hidden
               />
-            </div>
-            <input
-              ref={fileRef}
-              type="file"
-              accept="image/*"
-              onChange={handleProfileChange}
-              hidden
-            />
-            <button
-              onClick={() => fileRef.current.click()}
-              className="bg-gold px-4 py-1 rounded-lg mt-4 cursor-pointer"
-            >
-              Change Profile
-            </button>
-          </div>
-
-          <div className="space-y-2 mt-8">
-            <p className="flex gap-1 items-center">
-              <strong>Name:</strong> {user?.name}{" "}
-              <button onClick={() => setIsName((prev) => !prev)}>
-                <EditIcon className="hover:text-gold cursor-pointer" />
+              <button
+                onClick={() => fileRef.current.click()}
+                className="bg-gold px-4 py-1 rounded-lg mt-4 cursor-pointer"
+              >
+                Change Profile
               </button>
-            </p>
-            {isName && (
-              <form onSubmit={handleNameChange} className="gap-1 flex">
-                <input
-                  type="text"
-                  ref={nameRef}
-                  defaultValue={user?.name}
-                  className="border border-gold rounded-md py-0.5 px-2 focus:outline-none"
-                />
-                <Button
-                  name={loading ? "Changing..." : "Change"}
-                  className="!py-0.5 !px-2 !text-base"
-                />
-              </form>
-            )}
+            </div>
 
-            <p>
-              <strong>Email:</strong> {user?.email}
-            </p>
-            <p>
-              <strong>Role:</strong> {user?.role}
-            </p>
-          </div>
+            <div className="space-y-2 mt-8">
+              <p className="flex gap-1 items-center">
+                <strong>Name:</strong> {user?.name}{" "}
+                <button onClick={() => setIsName((prev) => !prev)}>
+                  <EditIcon className="hover:text-gold cursor-pointer" />
+                </button>
+              </p>
+              {isName && (
+                <form onSubmit={handleNameChange} className="gap-1 flex">
+                  <input
+                    type="text"
+                    ref={nameRef}
+                    defaultValue={user?.name}
+                    className="border border-gold rounded-md py-0.5 px-2 focus:outline-none"
+                  />
+                  <Button
+                    name={loading ? "Changing..." : "Change"}
+                    className="!py-0.5 !px-2 !text-base"
+                  />
+                </form>
+              )}
+
+              <p>
+                <strong>Email:</strong> {user?.email}
+              </p>
+              <p>
+                <strong>Role:</strong> {user?.role}
+              </p>
+            </div>
           </div>
         </Card>
       </div>

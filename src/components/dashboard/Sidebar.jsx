@@ -8,7 +8,6 @@ import { LeftArrowIcon, RightArrowIcon } from "../SvgIcons";
 const Sidebar = () => {
   const [isSidebar, setIsSidebar] = useState(false);
   const path = usePathname();
-
   return (
     <div
       className={`bg-green sidebar text-white h-screen w-72 sm:w-96 p-6 flex flex-col gap-8 fixed lg:sticky top-0 z-100 lg:rounded-[20px]  ${
